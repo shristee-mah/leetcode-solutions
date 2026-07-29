@@ -1,37 +1,25 @@
-#include <iostream>
-#include <unordered_map>
+// Problem: 14. Longest Common Prefix
+// Given a list of strings, find the longest common prefix string amongst them.
+
 #include <vector>
-using namespace std;
+#include <string>
 
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        unordered_map<int, int> mp;
-        for (int i = 0; i < static_cast<int>(nums.size()); ++i) {
-            int complement = target - nums[i];
-            if (mp.find(complement) != mp.end()) {
-                return {mp[complement], i};
-            }
-            mp[nums[i]] = i;
+    string longestCommonPrefix(vector<string>& strs) {
+     // Check every character of the first string
+     for (int i =0; i < strs[0].size(); i++){
+        char current = strs[0][i];
+
+        // Compare with all other strings.
+        for (int j = 1; j < strs.size(); j++){
+            // Stop if a. Current string is shorter, or b. Characters don't match
+            if (i>=strs[j].size()|| strs[j][i] != current)
+             return strs[0].substr(0,i);  //substr(startIndex, length)
         }
-        return {};
+     }
+     // Entire first string is the common prefix
+     return strs[0];
+
     }
 };
-
-int main() {
-    Solution sol;
-    vector<int> nums = {2, 7, 11, 15};
-    int target = 9;
-    vector<int> result = sol.twoSum(nums, target);
-
-    cout << "[";
-    for (size_t i = 0; i < result.size(); ++i) {
-        if (i > 0) {
-            cout << ", ";
-        }
-        cout << result[i];
-    }
-    cout << "]\n";
-
-    return 0;
-}
